@@ -2,6 +2,8 @@ library(shiny)
 library(tercen)
 library(dplyr)
 library(tidyr)
+library(msaR)
+library(Biostrings)
 
 ############################################
 #### This part should not be modified
@@ -26,16 +28,17 @@ shinyServer(function(input, output, session) {
   
   output$reacOut <- renderUI({
     plotOutput(
-      "main.plot",
-      height = input$plotHeight,
-      width = input$plotWidth
+      "main.plot"
     )
   }) 
   
   output$main.plot <- renderPlot({
     values <- dataInput()
-    data <- values$data$.y
-    hist(data)
+    tst <- values$data$set[[1]]
+    # names(tst) <- aln$nam
+    print(tst)
+    SEQ <- Biostrings::AAStringSet(tst)
+    msaR::msaR(SEQ)
   })
   
 })
@@ -43,11 +46,6 @@ shinyServer(function(input, output, session) {
 getValues <- function(session){
   ctx <- getCtx(session)
   values <- list()
-  
-  values$data <- ctx %>% select(.y, .ri, .ci) %>%
-    group_by(.ci, .ri) %>%
-    summarise(.y = mean(.y)) # take the mean of multiple values per cell
-  
+  values$data$set <- ctx$rselect(ctx$rnames[[1]])
   return(values)
 }
-

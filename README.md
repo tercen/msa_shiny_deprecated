@@ -1,19 +1,15 @@
-# Template Shiny operator for Tercen
+# MSA Shiny operator
 
 ##### Description
 
-The `Template Shiny operator` is a template repository for the creation of Shiny operators in Tercen.
+The `MSA Shiny operator` allows one to create an interactive visualisation fo a Multiple Sequence Alignment.
 
 ##### Usage
 
 Input projection|.
 ---|---
-`x-axis`        | type, description 
-`y-axis`        | type, description 
-`row`           | type, description 
-`column`        | type, description 
-`colors`        | type, description 
-`labels`        | type, description 
+`row`           | character, aligned sequences 
+`labels`           | character, sequence names 
 
 Output relations|.
 ---|---
@@ -21,11 +17,8 @@ Output relations|.
 
 ##### Details
 
-The operator takes all the values of a cell and returns the value which is the median.The computation is done per cell. There is one value returned for each of the input cell.
 
 #### References
 
 
 ##### See Also
-
-[templateR_operator](https://github.com/tercen/templateR_operator)

@@ -1,7 +1,7 @@
 {
-  "name": "Template Shiny Operator",
-  "description": "Template to create a Shiny operator in Tercen.",
-  "tags": ["template"],
+  "name": "MSA Shiny Operator",
+  "description": "Plot Multiple Sequence Alignment.",
+  "tags": ["bioinformatics"],
   "authors": ["tercen"],
-  "urls": ["https://github.com/tercen/template_shiny_operator"]
+  "urls": ["https://github.com/tercen/msa_shiny_operator"]
 }

@@ -2,12 +2,14 @@ library(shiny)
 library(tercen)
 library(dplyr)
 library(tidyr)
+library(msaR)
+library(Biostrings)
 
 ############################################
 #### This part should not be included in ui.R and server.R scripts
 getCtx <- function(session) {
-  ctx <- tercenCtx(stepId = "9b7619c7-4d66-49fa-9bb3-2b06209e58e4",
-                   workflowId = "f81d245ef22a2ff192ed2533a6002ec3")
+  ctx <- tercenCtx(stepId = "7f89df50-e79a-437b-b6f8-96da4eea6afb",
+                   workflowId = "a77770c3923fad0ca99b77fa8905471d")
   return(ctx)
 }
 ####
@@ -15,12 +17,7 @@ getCtx <- function(session) {
 
 ui <- shinyUI(fluidPage(
   
-  titlePanel("Histogram"),
-  
-  sidebarPanel(
-    sliderInput("plotWidth", "Plot width (px)", 200, 2000, 500),
-    sliderInput("plotHeight", "Plot height (px)", 200, 2000, 500),
-  ),
+  titlePanel("Multiple Sequence Alignment"),
   
   mainPanel(
     uiOutput("reacOut")
@@ -36,16 +33,17 @@ server <- shinyServer(function(input, output, session) {
   
   output$reacOut <- renderUI({
     plotOutput(
-      "main.plot",
-      height = input$plotHeight,
-      width = input$plotWidth
+      "main.plot"
     )
   }) 
   
   output$main.plot <- renderPlot({
     values <- dataInput()
-    data <- values$data$.y
-    hist(data)
+    tst <- values$data$set[[1]]
+    # names(tst) <- aln$nam
+    print(tst)
+    SEQ <- Biostrings::AAStringSet(tst)
+    msaR::msaR(SEQ)
   })
   
 })
@@ -53,11 +51,7 @@ server <- shinyServer(function(input, output, session) {
 getValues <- function(session){
   ctx <- getCtx(session)
   values <- list()
-
-  values$data <- ctx %>% select(.y, .ri, .ci) %>%
-    group_by(.ci, .ri) %>%
-    summarise(.y = mean(.y)) # take the mean of multiple values per cell
-
+  values$data$set <- ctx$rselect(ctx$rnames[[1]])
   return(values)
 }
 
