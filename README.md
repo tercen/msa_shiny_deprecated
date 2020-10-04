@@ -9,7 +9,7 @@ The `MSA Shiny operator` allows one to create an interactive visualisation fo a 
 Input projection|.
 ---|---
 `row`           | character, aligned sequences 
-`labels`           | character, sequence names 
+`row`           | character, sequence names 
 
 Output relations|.
 ---|---

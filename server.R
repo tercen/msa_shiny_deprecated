@@ -28,17 +28,25 @@ shinyServer(function(input, output, session) {
   
   output$reacOut <- renderUI({
     plotOutput(
-      "main.plot"
+      "main.plot",
+      height = input$plotHeight,
+      width = input$plotWidth
     )
   }) 
   
   output$main.plot <- renderPlot({
     values <- dataInput()
-    tst <- values$data$set[[1]]
-    # names(tst) <- aln$nam
-    print(tst)
+    tst <- values$data$sequence[[1]]
+    names(tst) <- 1:length(tst)
+    names(tst) <- values$data$names[[1]]
     SEQ <- Biostrings::AAStringSet(tst)
-    msaR::msaR(SEQ)
+    x <- Biostrings::AAStringSet(tst)
+    d <- as.dist(stringDist(x, method = "hamming")/width(x)[1])
+    tree <- bionj(d)
+    p <- ggtree(tree)
+    if(input$tiplabels) p <- p + geom_tiplab()
+    x <- ape::as.AAbin(x)
+    msaplot(p, fasta = x, window = input$position, offset = input$msaoffset, width = input$msawidth)    
   })
   
 })
@@ -46,6 +54,8 @@ shinyServer(function(input, output, session) {
 getValues <- function(session){
   ctx <- getCtx(session)
   values <- list()
-  values$data$set <- ctx$rselect(ctx$rnames[[1]])
+  values$data$names <- ctx$rselect(ctx$rnames[[grep(pattern = "name", ctx$rnames)]])
+  values$data$sequence <- ctx$rselect(ctx$rnames[[grep(pattern = "sequence", ctx$rnames)]])
+  
   return(values)
 }
