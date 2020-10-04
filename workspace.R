@@ -58,7 +58,7 @@ server <- shinyServer(function(input, output, session) {
     SEQ <- Biostrings::AAStringSet(tst)
     x <- Biostrings::AAStringSet(tst)
     d <- as.dist(stringDist(x, method = "hamming")/width(x)[1])
-    tree <- bionj(d)
+    tree <- ape::bionj(d)
     p <- ggtree(tree)
     if(input$tiplabels) p <- p + geom_tiplab()
     x <- ape::as.AAbin(x)

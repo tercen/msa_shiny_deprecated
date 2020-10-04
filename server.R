@@ -2,8 +2,10 @@ library(shiny)
 library(tercen)
 library(dplyr)
 library(tidyr)
-library(msaR)
+library(ggmsa)
 library(Biostrings)
+library(ape)
+library(ggtree)
 
 ############################################
 #### This part should not be modified
