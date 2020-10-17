@@ -15,10 +15,3 @@ Output relations|.
 ---|---
 `Operator view`        | view of the Shiny application
 
-##### Details
-
-
-#### References
-
-
-##### See Also
