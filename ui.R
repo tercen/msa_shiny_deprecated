@@ -1,9 +1,9 @@
 library(shiny)
+library(shinyjs)
 
 shinyUI(fluidPage(
   
   titlePanel("Multiple Sequence Alignment"),
-    tags$img(src="header.png", style="width: 100%;", title = "Header"),
     tags$script(HTML('setInterval(function(){ $("#hiddenButton").click(); }, 1000*4);')),
     tags$footer(shinyjs::hidden(actionButton(inputId = "hiddenButton", label="hidden"))),
   sidebarPanel(
