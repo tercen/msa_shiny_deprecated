@@ -1,11 +1,8 @@
 library(shiny)
-library(shinyjs)
 
 shinyUI(fluidPage(
   
   titlePanel("Multiple Sequence Alignment"),
-    tags$script(HTML('setInterval(function(){ $("#hiddenButton").click(); }, 1000*4);')),
-    tags$footer(shinyjs::hidden(actionButton(inputId = "hiddenButton", label="hidden"))),
   sidebarPanel(
     sliderInput("plotWidth", "Plot width (px)", 200, 2000, 500),
     sliderInput("plotHeight", "Plot height (px)", 200, 2000, 500),
