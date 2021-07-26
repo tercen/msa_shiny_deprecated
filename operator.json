@@ -1,6 +1,6 @@
 {
-  "name": "MSA Shiny Operator",
-  "description": "Plot Multiple Sequence Alignment.",
+  "name": "MSA Plot",
+  "description": "Multiple Sequence Alignment: Displays the alignment of three or more biological sequences (protein or nucleic acid) of similar length.",
   "tags": ["bioinformatics"],
   "authors": ["tercen"],
   "urls": ["https://github.com/tercen/msa_shiny_operator"]
